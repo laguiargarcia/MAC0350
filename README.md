@@ -1,23 +1,23 @@
-# 🎮 Game Ranker
+# Game Ranker
 
 Um web app simples para **registrar, avaliar e organizar jogos**.  
 O usuário pode adicionar jogos com **gênero, nota e comentário**, além de **buscar e ordenar os jogos cadastrados**.
 
-## 📌 Funcionalidades
+## Funcionalidades
 
-- ➕ Adicionar novos jogos
-- 🎮 Associar cada jogo a um **gênero**
-- ⭐ Dar uma **nota** para o jogo
-- 💬 Adicionar um **comentário**
-- 🔎 **Buscar jogos** pelo nome
-- 📊 **Ordenar jogos**
+-  Adicionar novos jogos
+-  Associar cada jogo a um **gênero**
+-  Dar uma **nota** para o jogo
+-  Adicionar um **comentário**
+-  **Buscar jogos** pelo nome
+-  **Ordenar jogos**
   - por **nota**
   - por **gênero**
-- 📱 Interface **responsiva** para desktop e mobile
+-  Interface **responsiva** para desktop e mobile
 
 ---
 
-## 🖼️ Demonstração
+## Demonstração
 
 Exemplo de registro de jogo:
 
@@ -30,7 +30,7 @@ Exemplo de registro de jogo:
 
 ---
 
-## 🧱 Estrutura do Projeto
+## Estrutura do Projeto
 
 game-ranker/
 │
@@ -49,7 +49,7 @@ game-ranker/
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 Frontend
 
@@ -67,14 +67,14 @@ Banco de dados
 
 ---
 
-## 🚀 Como executar o projeto
+## Como executar o projeto
 
-### 1️⃣ Clonar o repositório
+### Clonar o repositório
 
 git clone https://github.com/seu-usuario/game-ranker.git
 cd game-ranker
 
-### 2️⃣ Criar ambiente virtual
+### Criar ambiente virtual
 
 python -m venv venv
 source venv/bin/activate
@@ -83,11 +83,11 @@ Windows:
 
 venv\Scripts\activate
 
-### 3️⃣ Instalar dependências
+### Instalar dependências
 
 pip install fastapi uvicorn
 
-### 4️⃣ Executar o servidor
+### Executar o servidor
 
 uvicorn main:app --reload
 
@@ -97,7 +97,7 @@ http://localhost:8000
 
 ---
 
-## 📊 Modelo de Dados
+## Modelo de Dados
 
 ### Game
 
@@ -111,7 +111,7 @@ http://localhost:8000
 
 ---
 
-## 🔎 Exemplos de Uso
+## Exemplos de Uso
 
 ### Adicionar jogo
 
@@ -140,7 +140,7 @@ GET /games?sort=genre
 
 ---
 
-## 📌 Possíveis melhorias
+## Possíveis melhorias
 
 - Sistema de usuários
 - Upload de capa do jogo
@@ -150,7 +150,7 @@ GET /games?sort=genre
 
 ---
 
-## 👤 Autor
+## Autor
 
 Lucas Aguiar Garcia
 
