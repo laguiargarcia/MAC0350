@@ -3,17 +3,34 @@
 Um web app simples para **registrar, avaliar e organizar jogos**.  
 O usuário pode adicionar jogos com **gênero, nota e comentário**, além de **buscar e ordenar os jogos cadastrados**.
 
+Os **gêneros são armazenados como um modelo próprio no banco de dados**, permitindo **criar, renomear e remover gêneros** de forma independente.
+
+---
+
 ## Funcionalidades
 
--  Adicionar novos jogos
--  Associar cada jogo a um **gênero**
--  Dar uma **nota** para o jogo
--  Adicionar um **comentário**
--  **Buscar jogos** pelo nome
--  **Ordenar jogos**
+### Jogos
+
+- Adicionar novos jogos
+- Atualizar informações de um jogo
+- Remover jogos
+- Associar cada jogo a um **gênero**
+- Dar uma **nota** para o jogo
+- Adicionar um **comentário**
+- **Buscar jogos** pelo nome
+- **Ordenar jogos**
   - por **nota**
   - por **gênero**
--  Interface **responsiva** para desktop e mobile
+
+### Gêneros
+
+- Criar novos gêneros
+- Renomear gêneros existentes
+- Remover gêneros
+
+### Interface
+
+- Interface **responsiva** para desktop e mobile
 
 ---
 
@@ -31,6 +48,7 @@ Exemplo de registro de jogo:
 ---
 
 ## Estrutura do Projeto
+
 
 ```
 game-ranker/
@@ -106,50 +124,23 @@ http://localhost:8000
 |---|---|
 | id | integer |
 | name | string |
-| genre | string |
 | rating | float |
 | comment | string |
+| genre_id | integer |
 
----
+### Genre
 
-## Exemplos de Uso
+| Campo | Tipo |
+|---|---|
+| id | integer |
+| name | string |
 
-### Adicionar jogo
+### Relação
 
-POST /games
+- Um **gênero pode ter vários jogos**  
+- Cada **jogo pertence a um único gênero**
 
-{
-  "name": "Celeste",
-  "genre": "Platformer",
-  "rating": 9.5,
-  "comment": "Gameplay muito preciso"
-}
-
-### Buscar jogo
-
-GET /games/search?name=celeste
-
-### Ordenar jogos
-
-Por nota:
-
-GET /games?sort=rating
-
-Por gênero:
-
-GET /games?sort=genre
-
----
-
-## Possíveis melhorias
-
-- Sistema de usuários
-- Upload de capa do jogo
-- Filtros avançados
-- API pública
-- Ranking global
-
----
+Relação: **One-to-Many (Genre → Game)**
 
 ## Autor
 
