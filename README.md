@@ -32,6 +32,7 @@ Exemplo de registro de jogo:
 
 ## Estrutura do Projeto
 
+```
 game-ranker/
 │
 ├── frontend/
@@ -46,7 +47,7 @@ game-ranker/
 │   └── game.py
 │
 └── README.md
-
+```
 ---
 
 ## Tecnologias Utilizadas
