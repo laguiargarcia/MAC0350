@@ -163,13 +163,6 @@ HTML = """<!DOCTYPE html>
 def get_page():
     return HTML
 
-
-class UserBody:
-    def __init__(self, nome: str, idade: int):
-        self.nome = nome
-        self.idade = idade
-
-
 from pydantic import BaseModel
 
 class UserModel(BaseModel):
@@ -184,7 +177,7 @@ def create_user(user: UserModel):
 
 
 @app.get("/users")
-def get_users(index: Optional[int] = Query(default=None)):
+def get_users(index: int | None = Query(default=None)):
     if index is None:
         return users
     if index < 0 or index >= len(users):
