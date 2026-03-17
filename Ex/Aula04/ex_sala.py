@@ -11,8 +11,8 @@ HTML = """<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/json-enc.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx-ext-json-enc@2.0.1/json-enc.js"></script>
     <title>Requests</title>
     <style>
         body {
@@ -51,7 +51,7 @@ HTML = """<!DOCTYPE html>
         }
 
         #json-insert {
-            color: #ff690a;
+            color: #aa690a;
             font-size: xx-large;
         }
 
@@ -131,9 +131,9 @@ HTML = """<!DOCTYPE html>
         </form>
         <hr>
         <input type="number"
-            name="index"
             hx-get="/users"
             hx-trigger="input changed"
+            hx-vals="js:{index: event.target.value}"
             hx-target="#json-insert"
             hx-swap="innerHTML"
             placeholder="Índice do usuário">
