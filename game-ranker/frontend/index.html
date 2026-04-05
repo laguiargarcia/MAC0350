@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Ranker</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">GAME<strong>RANKER</strong></span>
+      </div>
+      <nav>
+        <a href="index.html" class="nav-link active">Jogos</a>
+        <a href="genres.html" class="nav-link">Gêneros</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="page-hero">
+      <h1>Sua coleção</h1>
+      <p class="subtitle">Registre, avalie e organize seus jogos favoritos.</p>
+    </section>
+    <section class="card">
+      <h2 class="card-title">➕ Adicionar jogo</h2>
+      <form
+        hx-post="http://localhost:8000/games"
+        hx-target="#games-tbody"
+        hx-swap="beforeend"
+        hx-on::after-request="if(event.detail.successful){ this.reset(); reloadGamesTable(); loadGenreOptions(); }"
+        class="game-form"
+      >
+        <div class="form-grid">
+          <div class="field">
+            <label>Nome</label>
+            <input name="name" type="text" placeholder="ex: Hollow Knight" required />
+          </div>
+          <div class="field">
+            <label>
+              Gêneros
+              <small style="text-transform:none;font-size:10px">(Ctrl/⌘ para múltiplos)</small>
+            </label>
+            <select name="genre_ids" id="genre-select-add" multiple size="4"
+              hx-get="http://localhost:8000/genres/options"
+              hx-trigger="load"
+              hx-swap="innerHTML">
+              <option value="">Carregando...</option>
+            </select>
+          </div>
+          <div class="field field-sm">
+            <label>Nota (0–10)</label>
+            <input name="rating" type="number" min="0" max="10" step="0.1" placeholder="9.5" required />
+          </div>
+          <div class="field field-wide">
+            <label>Comentário</label>
+            <input name="comment" type="text" placeholder="ex: Combate e exploração excelentes" />
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Adicionar</button>
+      </form>
+    </section>
+
+    <!-- ── FILTROS ── -->
+    <section class="filters">
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input
+          type="text"
+          name="search"
+          placeholder="Buscar por nome..."
+          hx-get="http://localhost:8000/games"
+          hx-trigger="input changed delay:300ms"
+          hx-target="#games-tbody"
+          hx-swap="innerHTML"
+          hx-include="[name='order_by']"
+          class="search-input"
+        />
+      </div>
+      <div class="order-wrap">
+        <span class="label">Ordenar:</span>
+        <label class="radio-btn">
+          <input type="radio" name="order_by" value=""
+            hx-get="http://localhost:8000/games"
+            hx-trigger="change"
+            hx-target="#games-tbody"
+            hx-swap="innerHTML"
+            hx-include="[name='search']"
+            checked /> Padrão
+        </label>
+        <label class="radio-btn">
+          <input type="radio" name="order_by" value="rating"
+            hx-get="http://localhost:8000/games"
+            hx-trigger="change"
+            hx-target="#games-tbody"
+            hx-swap="innerHTML"
+            hx-include="[name='search']" /> Nota
+        </label>
+        <label class="radio-btn">
+          <input type="radio" name="order_by" value="genre"
+            hx-get="http://localhost:8000/games"
+            hx-trigger="change"
+            hx-target="#games-tbody"
+            hx-swap="innerHTML"
+            hx-include="[name='search']" /> Gênero
+        </label>
+        <label class="radio-btn">
+          <input type="radio" name="order_by" value="name"
+            hx-get="http://localhost:8000/games"
+            hx-trigger="change"
+            hx-target="#games-tbody"
+            hx-swap="innerHTML"
+            hx-include="[name='search']" /> Nome
+        </label>
+      </div>
+    </section>
+    <section class="card table-card">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Gêneros</th>
+              <th>Nota</th>
+              <th>Comentário</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="games-tbody"
+            hx-get="http://localhost:8000/games"
+            hx-trigger="load"
+            hx-swap="innerHTML">
+            <tr><td colspan="5" class="loading">Carregando jogos...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    function reloadGamesTable() {
+      const tbody = document.getElementById("games-tbody");
+      if (!tbody) return;
+      htmx.ajax("GET", "http://localhost:8000/games", {
+        target: "#games-tbody",
+        swap: "innerHTML"
+      });
+    }
+
+    function loadGenreOptions() {
+      const select = document.getElementById("genre-select-add");
+      if (!select) return;
+      fetch("http://localhost:8000/genres/options")
+        .then(r => r.text())
+        .then(html => { select.innerHTML = html; })
+        .catch(() => {});
+    }
+  </script>
+</body>
+</html>

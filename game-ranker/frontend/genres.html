@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gêneros · Game Ranker</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">GAME<strong>RANKER</strong></span>
+      </div>
+      <nav>
+        <a href="index.html" class="nav-link">Jogos</a>
+        <a href="genres.html" class="nav-link active">Gêneros</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+
+    <section class="page-hero">
+      <h1>Gêneros</h1>
+      <p class="subtitle">Crie e gerencie os gêneros dos seus jogos. Gêneros podem ser aninhados em qualquer profundidade.</p>
+    </section>
+
+    <!-- ── FORM: novo gênero ── -->
+    <section class="card narrow-card">
+      <h2 class="card-title">➕ Novo gênero</h2>
+      <form
+        hx-post="http://localhost:8000/genres"
+        hx-target="#genres-tbody"
+        hx-swap="beforeend"
+        hx-on::after-request="if(event.detail.successful){ this.reset(); reloadGenreTable(); reloadGenreParentSelect(); }"
+        class="genre-form"
+      >
+        <div class="form-grid">
+          <div class="field">
+            <label>Nome</label>
+            <input name="name" type="text" placeholder="ex: Metroidvania" required />
+          </div>
+          <div class="field">
+            <label>Gênero pai <small style="text-transform:none;font-size:10px">(opcional)</small></label>
+            <select name="parent_id" id="genre-parent-select"
+              hx-get="http://localhost:8000/genres/options"
+              hx-trigger="load"
+              hx-swap="innerHTML">
+              <option value="">Carregando...</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Criar</button>
+      </form>
+    </section>
+    <section class="card table-card narrow-card">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome / Hierarquia</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="genres-tbody"
+            hx-get="http://localhost:8000/genres"
+            hx-trigger="load"
+            hx-swap="innerHTML">
+            <tr><td colspan="2" class="loading">Carregando gêneros...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+  <script src="script.js"></script>
+  <script>
+    function reloadGenreTable() {
+      htmx.ajax("GET", "http://localhost:8000/genres", {
+        target: "#genres-tbody",
+        swap: "innerHTML"
+      });
+    }
+
+    function reloadGenreParentSelect() {
+      const sel = document.getElementById("genre-parent-select");
+      if (!sel) return;
+      fetch("http://localhost:8000/genres/options")
+        .then(r => r.text())
+        .then(html => {
+          sel.innerHTML = '<option value="">N/A</option>' + html;
+        })
+        .catch(() => {});
+    }
+  </script>
+</body>
+</html>
