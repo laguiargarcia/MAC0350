@@ -4,7 +4,6 @@ async function loadAncestryMap() {
   try {
     const r = await fetch("http://localhost:8000/genres/ancestry");
     ancestryMap = await r.json();
-    // as chaves chegam como strings no JSON; normaliza para Number
     const normalized = {};
     for (const [k, v] of Object.entries(ancestryMap)) {
       normalized[Number(k)] = v.map(Number);
@@ -92,7 +91,7 @@ function showToast(message, type = "info") {
   toast.textContent = message;
   document.body.appendChild(toast);
 
-  toast.getBoundingClientRect(); // forçar reflow
+  toast.getBoundingClientRect();
   toast.classList.add("toast-visible");
 
   setTimeout(() => {
