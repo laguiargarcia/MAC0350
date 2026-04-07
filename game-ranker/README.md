@@ -76,11 +76,11 @@ game-ranker/
 
 **Frontend**
 - HTML / CSS / JavaScript
-- [HTMX](https://htmx.org/) — interatividade sem framework JS
+- [HTMX](https://htmx.org/)
 
 **Backend**
 - [FastAPI](https://fastapi.tiangolo.com/)
-- [SQLAlchemy](https://www.sqlalchemy.org/) (ORM)
+- [SQLModel](https://sqlmodel.tiangolo.com/)
 - SQLite
 
 ---
@@ -89,27 +89,20 @@ game-ranker/
 
 ### Genre
 
-| Campo      | Tipo    | Descrição                                 |
-|------------|---------|-------------------------------------------|
-| id         | integer | Chave primária                            |
-| name       | string  | Nome único do gênero                      |
-| parent_id  | integer | FK para `genres.id` (nullable) — hierarquia |
+| Campo      | Tipo    |
+|------------|---------|
+| id         | integer |
+| name       | string  |
+| parent_id  | integer |
 
 ### Game
 
-| Campo   | Tipo    | Descrição      |
-|---------|---------|----------------|
-| id      | integer | Chave primária |
-| name    | string  | Nome do jogo   |
-| rating  | float   | Nota (0–10)    |
-| comment | string  | Comentário     |
-
-### game_genres (tabela de associação)
-
-| Campo    | Tipo    | Descrição         |
-|----------|---------|-------------------|
-| game_id  | integer | FK → `games.id`   |
-| genre_id | integer | FK → `genres.id`  |
+| Campo   | Tipo    |
+|---------|---------|
+| id      | integer |
+| name    | string  |
+| rating  | float   |
+| comment | string  |
 
 ### Relações
 
