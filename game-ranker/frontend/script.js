@@ -65,8 +65,9 @@ document.addEventListener("htmx:configRequest", function (evt) {
   }
 
   if (!genreSelect) return;
-  
-  if (checkAncestorConflict(genreSelect)) {
+
+  const error = checkAncestorConflict(genreSelect);
+  if (error) {
     evt.preventDefault();
     showToast(error, "error");
   }
