@@ -118,3 +118,11 @@ game-ranker/
 
 Relação Game ↔ Genre: **Many-to-Many** (via `game_genres`)  
 Relação Genre ↔ Genre: **One-to-Many** auto-referenciada (hierarquia)
+
+## Processo de Desenvolvimento
+
+O desenvolvimento contou com o auxílio de **ferramentas de IA** (Claude) em algumas etapas:
+
+- Geração e refinamento de partes do **frontend** (HTML/CSS)
+- Suporte ao **debugging** de comportamentos inesperados no backend e nas integrações HTMX
+- Revisão pontual de lógica em trechos específicos do código

@@ -8,8 +8,6 @@
   <script src="https://unpkg.com/htmx.org@1.9.12"></script>
 </head>
 <body>
-
-  <!-- ── HEADER ── -->
   <header>
     <div class="header-inner">
       <div class="logo">
@@ -28,8 +26,6 @@
       <h1>Gêneros</h1>
       <p class="subtitle">Crie e gerencie os gêneros dos seus jogos. Gêneros podem ser aninhados em qualquer profundidade.</p>
     </section>
-
-    <!-- ── FORM: novo gênero ── -->
     <section class="card narrow-card">
       <h2 class="card-title">➕ Novo gênero</h2>
       <form
@@ -42,7 +38,7 @@
         <div class="form-grid">
           <div class="field">
             <label>Nome</label>
-            <input name="name" type="text" placeholder="ex: Metroidvania" required />
+            <input name="name" type="text" placeholder="-" required />
           </div>
           <div class="field">
             <label>Gênero pai <small style="text-transform:none;font-size:10px">(opcional)</small></label>
@@ -92,7 +88,7 @@
       fetch("http://localhost:8000/genres/options")
         .then(r => r.text())
         .then(html => {
-          sel.innerHTML = '<option value="">N/A</option>' + html;
+          sel.innerHTML = '<option value="">-</option>' + html;
         })
         .catch(() => {});
     }
